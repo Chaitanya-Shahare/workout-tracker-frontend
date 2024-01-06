@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import {
   TextInput,
@@ -6,6 +6,7 @@ import {
   Surface,
   ActivityIndicator,
 } from "react-native-paper";
+import { AuthContext } from "../../context/AuthProvider";
 
 export const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
@@ -20,30 +21,30 @@ export const LoginScreen = ({ navigation }: any) => {
 
   const handleLogin = async () => {
     const payload = { userName, email, password };
-
     try {
-      const handleLogin = async () => {
-        const payload = { userName, email, password };
+      const response = await fetch("http://localhost:5001/users/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-        try {
-          const response = await fetch("http://localhost:5001/users/signup", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-          });
-
-          const data = await response.json();
-          console.log(data);
-          navigation.navigate("Home");
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
+      const data = await response.json();
+      console.log(data);
+      navigation.navigate("Home");
     } catch (error) {
       console.error("Error:", error);
     }
+  };
+
+  const { setIsSignedIn, isSignedIn } = useContext(AuthContext);
+
+  const toggleIsSignedInTrue = () => {
+    setIsSignedIn(true);
+  };
+  const toggleIsSignedInFalse = () => {
+    setIsSignedIn(false);
   };
 
   return (
@@ -72,6 +73,20 @@ export const LoginScreen = ({ navigation }: any) => {
       <ActivityIndicator animating={true} color="#000" />
       <Button mode="contained" onPress={handleLogin} style={styles.button}>
         Login
+      </Button>
+      <Button
+        mode="outlined"
+        onPress={toggleIsSignedInTrue}
+        style={styles.button}
+      >
+        toggle isSignedIn true
+      </Button>
+      <Button
+        mode="outlined"
+        onPress={toggleIsSignedInFalse}
+        style={styles.button}
+      >
+        toggle isSignedIn flase
       </Button>
     </Surface>
   );
