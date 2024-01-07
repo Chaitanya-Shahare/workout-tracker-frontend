@@ -76,7 +76,6 @@ export const SignupScreen = ({ navigation }: any) => {
         style={styles.input}
       />
 
-      <ActivityIndicator animating={true} color="#000" />
       <Button mode="contained" onPress={handleSignup} style={styles.button}>
         Signup
       </Button>
@@ -95,5 +94,6 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 16,
+    borderRadius: 8,
   },
 });

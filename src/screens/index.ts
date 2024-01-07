@@ -4,3 +4,4 @@ export * from "./HomeScreen";
 export * from "./AddListScreen";
 export * from "./ExerciseListScreen";
 export * from "./AddExerciseScreen";
+export * from "./ExerciseLogScreen";

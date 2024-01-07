@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native-paper";
 
-export const AddExercise = ({ navigation }: any) => {
+export const AddExerciseScreen = ({ navigation }: any) => {
   const [exerciseName, setExerciseName] = React.useState("");
   const [exerciseDescription, setExerciseDescription] = React.useState("");
 

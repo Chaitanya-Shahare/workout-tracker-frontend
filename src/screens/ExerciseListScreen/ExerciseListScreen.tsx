@@ -9,8 +9,8 @@ import {
 } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-export const ExerciseListScreen: React.FC = () => {
-  const navigation = useNavigation();
+export const ExerciseListScreen = ({ navigation }: any) => {
+  // const navigation = useNavigation();
   const route = useRoute();
 
   // The listName parameter is in route.params.listName
@@ -35,8 +35,8 @@ export const ExerciseListScreen: React.FC = () => {
   }) => (
     <TouchableRipple
       onPress={() => {
-        console.log("pressed exercise");
-        // navigation.navigate("ExerciseList", { listName: list });
+        console.log("pressed exercise abc");
+        navigation.navigate("ExerciseLog", { listName });
       }}
     >
       <List.Item
@@ -55,6 +55,9 @@ export const ExerciseListScreen: React.FC = () => {
           keyExtractor={(item) => item.id.toString()}
           ItemSeparatorComponent={() => <Divider style={styles.divider} />}
         />
+        {/* {exercises.map((exercise, index) =>
+          renderExerciseItem({ item: exercise })
+        )} */}
       </Surface>
 
       <Button
