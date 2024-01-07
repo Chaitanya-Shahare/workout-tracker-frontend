@@ -7,12 +7,32 @@ import {
   ActivityIndicator,
 } from "react-native-paper";
 import { AuthContext } from "../../context/AuthProvider";
+import { userState } from "../SignupScreen";
+import { useRecoilState } from "recoil";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
 
+  const [user, setUser] = useRecoilState(userState);
+
+  let token = "";
+  (async () => {
+    const userJson = await AsyncStorage.getItem("user");
+    // setUser(JSON.parse(userJson))
+    if (userJson) {
+      console.log("user from async stoarage", JSON.parse(userJson));
+      token = JSON.parse(userJson).token;
+    }
+  })();
+
+  useEffect(() => {
+    console.log("token", token);
+  }, [email]);
+
+  // console.log for testing input fields
   useEffect(() => {
     console.log("email", email);
     console.log("password", password);

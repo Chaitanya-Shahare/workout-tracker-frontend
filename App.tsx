@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
+import { RecoilRoot, useRecoilState } from "recoil";
 import { StyleSheet, Text, View, useColorScheme } from "react-native";
 import {
   Button,
@@ -11,7 +12,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { LoginScreen, SignupScreen } from "./src/screens";
+import { LoginScreen, SignupScreen, userState } from "./src/screens";
 import { CustomHeader } from "./src/components";
 import { AuthProvider, AuthContext } from "./src/context/AuthProvider";
 
@@ -20,17 +21,12 @@ export default function App() {
   const [colorScheme, setColorScheme] = useState(useColorScheme());
   const paperTheme = colorScheme === "dark" ? MD3DarkTheme : MD3LightTheme;
 
-  const { isSignedIn } = useContext(AuthContext);
-  useEffect(() => {
-    console.log("isSignedIn", isSignedIn);
-  }, [isSignedIn]);
-
   return (
-    <AuthProvider>
+    <RecoilRoot>
       <PaperProvider theme={paperTheme}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Login"
+            initialRouteName="Signup"
             screenOptions={{
               header: (props) => <CustomHeader {...props} />,
             }}
@@ -51,6 +47,6 @@ export default function App() {
           </Button>
         </NavigationContainer>
       </PaperProvider>
-    </AuthProvider>
+    </RecoilRoot>
   );
 }

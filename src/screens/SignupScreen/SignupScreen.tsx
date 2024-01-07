@@ -8,6 +8,7 @@ import {
 } from "react-native-paper";
 import * as Keychain from "react-native-keychain";
 import { AuthContext } from "../../context/AuthProvider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const SignupScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ export const SignupScreen = ({ navigation }: any) => {
     console.log("userName", userName);
   }, [email, password, userName]);
 
-  const { setIsSignedIn } = useContext(AuthContext);
+  // const { setIsSignedIn } = useContext(AuthContext);
 
   const handleSignup = async () => {
     const payload = { userName, email, password };
@@ -35,11 +36,18 @@ export const SignupScreen = ({ navigation }: any) => {
       });
 
       const data = await response.json();
-      const { token } = data;
-      await Keychain.setGenericPassword(email, token);
       console.log(data);
-      setIsSignedIn(true);
-      navigation.navigate("Login");
+      if (data.success) {
+        console.log("signup", data);
+        // const { token } = data;
+        await AsyncStorage.setItem(
+          "user",
+          JSON.stringify({ ...data.user, token: data.token })
+        );
+        console.log(data);
+        // setIsSignedIn(true);
+        navigation.navigate("Login");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
