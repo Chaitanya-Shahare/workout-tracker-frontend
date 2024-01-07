@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 import {
   List,
   Text,
@@ -9,6 +9,7 @@ import {
   TouchableRipple,
   Modal,
   TextInput,
+  Divider,
 } from "react-native-paper";
 
 export const HomeScreen = ({ navigation }: any) => {
@@ -38,7 +39,10 @@ export const HomeScreen = ({ navigation }: any) => {
           {lists.map((list, index) => (
             <TouchableRipple
               key={index}
-              onPress={() => console.log("pressed", list)}
+              onPress={() => {
+                console.log("pressed", list);
+                navigation.navigate("ExerciseList", { listName: list });
+              }}
               //   rippleColor="rgba(0, 0, 0, .32)"
             >
               <List.Item
@@ -47,6 +51,7 @@ export const HomeScreen = ({ navigation }: any) => {
                 right={() => <List.Icon icon="chevron-right" color="grey" />}
                 style={styles.listItem}
               />
+              {/* <Divider /> */}
             </TouchableRipple>
           ))}
         </Surface>
