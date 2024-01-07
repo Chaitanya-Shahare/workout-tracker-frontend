@@ -61,7 +61,7 @@ export const ExerciseListScreen: React.FC = () => {
         mode="contained"
         onPress={() => {
           console.log("pressed Add Exercise");
-          // navigation.navigate("AddExercise", { listName });
+          navigation.navigate("AddExercise", { listName });
         }}
         style={styles.button}
       >

@@ -13,7 +13,12 @@ import {
 } from "react-native-paper";
 
 export const HomeScreen = ({ navigation }: any) => {
-  const [lists, setLists] = React.useState(["push", "pull", "legs"]);
+  const [lists, setLists] = React.useState([
+    "My Exercises",
+    "push",
+    "pull",
+    "legs",
+  ]);
   //   (async () => {
   //     const userToBeParsed = await AsyncStorage.getItem("user");
   //     if (userToBeParsed) setLists(JSON.parse(userToBeParsed).lists);
