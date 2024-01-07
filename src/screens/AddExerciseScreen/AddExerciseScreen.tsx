@@ -28,7 +28,11 @@ export const AddExercise = ({ navigation }: any) => {
         value={exerciseDescription}
         onChangeText={setExerciseDescription}
       />
-      <Button mode="contained" onPress={handleAddExercise}>
+      <Button
+        style={styles.button}
+        mode="contained"
+        onPress={handleAddExercise}
+      >
         Add Exercise
       </Button>
     </Surface>
@@ -46,6 +50,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   button: {
-    marginTop: 16,
+    // marginTop: 16,
+    borderRadius: 8,
   },
 });

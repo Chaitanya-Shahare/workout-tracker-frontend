@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import {
   List,
   Text,
@@ -50,13 +50,15 @@ export const HomeScreen = ({ navigation }: any) => {
               }}
               //   rippleColor="rgba(0, 0, 0, .32)"
             >
-              <List.Item
-                title={list}
-                left={() => <List.Icon icon="format-list-bulleted" />}
-                right={() => <List.Icon icon="chevron-right" color="grey" />}
-                style={styles.listItem}
-              />
-              {/* <Divider /> */}
+              <View>
+                <List.Item
+                  title={list}
+                  left={() => <List.Icon icon="format-list-bulleted" />}
+                  right={() => <List.Icon icon="chevron-right" color="grey" />}
+                  style={styles.listItem}
+                />
+                <Divider style={styles.divider} />
+              </View>
             </TouchableRipple>
           ))}
         </Surface>
@@ -76,5 +78,9 @@ const styles = StyleSheet.create({
   },
   listItem: {
     padding: 16,
+  },
+  divider: {
+    marginLeft: 16,
+    marginRight: 16,
   },
 });

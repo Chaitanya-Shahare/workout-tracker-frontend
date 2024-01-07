@@ -22,9 +22,9 @@ export const ExerciseListScreen: React.FC = () => {
   }, [listName]);
 
   const exercises = [
-    { id: 1, name: "Exercise 1" },
-    { id: 2, name: "Exercise 2" },
-    { id: 3, name: "Exercise 3" },
+    { id: 1, name: "Bench Press" },
+    { id: 2, name: "DB Overhead Press" },
+    { id: 3, name: "Side Lateral Raises" },
     // Add more exercises as needed
   ];
 
@@ -53,7 +53,7 @@ export const ExerciseListScreen: React.FC = () => {
           data={exercises}
           renderItem={renderExerciseItem}
           keyExtractor={(item) => item.id.toString()}
-          ItemSeparatorComponent={() => <Divider />}
+          ItemSeparatorComponent={() => <Divider style={styles.divider} />}
         />
       </Surface>
 
@@ -86,5 +86,9 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 8,
+  },
+  divider: {
+    marginLeft: 16,
+    marginRight: 16,
   },
 });
