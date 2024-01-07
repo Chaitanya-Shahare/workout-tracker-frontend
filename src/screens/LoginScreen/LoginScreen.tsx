@@ -69,13 +69,6 @@ export const LoginScreen = ({ navigation }: any) => {
 
   return (
     <Surface style={styles.container}>
-      {/* <Header /> */}
-      {/* <TextInput
-        label="UserName"
-        value={userName}
-        onChangeText={setUserName}
-        style={styles.input}
-      /> */}
       <TextInput
         label="Email"
         value={email}
@@ -90,23 +83,8 @@ export const LoginScreen = ({ navigation }: any) => {
         style={styles.input}
       />
 
-      <ActivityIndicator animating={true} color="#000" />
       <Button mode="contained" onPress={handleLogin} style={styles.button}>
         Login
-      </Button>
-      <Button
-        mode="outlined"
-        onPress={toggleIsSignedInTrue}
-        style={styles.button}
-      >
-        toggle isSignedIn true
-      </Button>
-      <Button
-        mode="outlined"
-        onPress={toggleIsSignedInFalse}
-        style={styles.button}
-      >
-        toggle isSignedIn flase
       </Button>
     </Surface>
   );

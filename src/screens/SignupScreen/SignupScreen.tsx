@@ -46,7 +46,7 @@ export const SignupScreen = ({ navigation }: any) => {
         );
         console.log(data);
         // setIsSignedIn(true);
-        navigation.navigate("Login");
+        navigation.navigate("Home");
       }
     } catch (error) {
       console.error("Error:", error);

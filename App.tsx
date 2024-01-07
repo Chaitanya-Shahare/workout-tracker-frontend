@@ -12,7 +12,12 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
-import { LoginScreen, SignupScreen, userState } from "./src/screens";
+import {
+  HomeScreen,
+  LoginScreen,
+  SignupScreen,
+  userState,
+} from "./src/screens";
 import { CustomHeader } from "./src/components";
 import { AuthProvider, AuthContext } from "./src/context/AuthProvider";
 
@@ -26,13 +31,14 @@ export default function App() {
       <PaperProvider theme={paperTheme}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Signup"
+            initialRouteName="Home"
             screenOptions={{
               header: (props) => <CustomHeader {...props} />,
             }}
           >
             <Stack.Screen name="Signup" component={SignupScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
           </Stack.Navigator>
 
           {/* // colorscheme toggle button */}
