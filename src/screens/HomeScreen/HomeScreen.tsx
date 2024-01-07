@@ -11,25 +11,12 @@ import {
   TextInput,
 } from "react-native-paper";
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ navigation }: any) => {
   const [lists, setLists] = React.useState(["push", "pull", "legs"]);
   //   (async () => {
   //     const userToBeParsed = await AsyncStorage.getItem("user");
   //     if (userToBeParsed) setLists(JSON.parse(userToBeParsed).lists);
   //   })();
-
-  const [visible, setVisible] = React.useState(false);
-
-  const showModal = () => setVisible(true);
-  const hideModal = () => setVisible(false);
-
-  const containerStyle = {
-    backgroundColor: "white",
-    padding: 16,
-    margin: 16,
-    borderRadius: 8,
-    // outerHeight: "50vh",
-  };
 
   return (
     <Surface style={styles.container}>
@@ -39,7 +26,7 @@ export const HomeScreen = () => {
           <TouchableRipple
             onPress={() => {
               console.log("pressed Add list");
-              setVisible(true);
+              navigation.navigate("AddList");
             }}
           >
             <List.Item

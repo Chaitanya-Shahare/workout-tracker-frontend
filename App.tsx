@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import {
+  AddListScreen,
   HomeScreen,
   LoginScreen,
   SignupScreen,
@@ -39,6 +40,7 @@ export default function App() {
             <Stack.Screen name="Signup" component={SignupScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="AddList" component={AddListScreen} />
           </Stack.Navigator>
 
           {/* // colorscheme toggle button */}
