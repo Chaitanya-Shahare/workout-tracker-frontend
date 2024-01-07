@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import {
   TextInput,
@@ -6,6 +6,9 @@ import {
   Surface,
   ActivityIndicator,
 } from "react-native-paper";
+import * as Keychain from "react-native-keychain";
+import { AuthContext } from "../../context/AuthProvider";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const SignupScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
@@ -18,21 +21,33 @@ export const SignupScreen = ({ navigation }: any) => {
     console.log("userName", userName);
   }, [email, password, userName]);
 
-  const handleLogin = async () => {
+  // const { setIsSignedIn } = useContext(AuthContext);
+
+  const handleSignup = async () => {
     const payload = { userName, email, password };
 
     try {
-      //       const response = await fetch("http://localhost:5001/users/signup", {
-      //         method: "POST",
-      //         headers: {
-      //           "Content-Type": "application/json",
-      //         },
-      //         body: JSON.stringify(payload),
-      //       });
+      const response = await fetch("http://localhost:5001/users/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-      //       const data = await response.json();
-      //       console.log(data);
-      navigation.navigate("Login");
+      const data = await response.json();
+      console.log(data);
+      if (data.success) {
+        console.log("signup", data);
+        // const { token } = data;
+        await AsyncStorage.setItem(
+          "user",
+          JSON.stringify({ ...data.user, token: data.token })
+        );
+        console.log(data);
+        // setIsSignedIn(true);
+        navigation.navigate("Login");
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -62,7 +77,7 @@ export const SignupScreen = ({ navigation }: any) => {
       />
 
       <ActivityIndicator animating={true} color="#000" />
-      <Button mode="contained" onPress={handleLogin} style={styles.button}>
+      <Button mode="contained" onPress={handleSignup} style={styles.button}>
         Signup
       </Button>
     </Surface>
