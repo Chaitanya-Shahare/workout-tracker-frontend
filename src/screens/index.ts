@@ -5,3 +5,4 @@ export * from "./AddListScreen";
 export * from "./ExerciseListScreen";
 export * from "./AddExerciseScreen";
 export * from "./ExerciseLogScreen";
+export * from "./AddSetScreen";

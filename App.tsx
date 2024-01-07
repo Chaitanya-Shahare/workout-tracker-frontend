@@ -15,6 +15,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import {
   AddExerciseScreen,
   AddListScreen,
+  AddSetScreen,
   ExerciseListScreen,
   ExerciseLogScreen,
   HomeScreen,
@@ -47,6 +48,7 @@ export default function App() {
             <Stack.Screen name="ExerciseList" component={ExerciseListScreen} />
             <Stack.Screen name="AddExercise" component={AddExerciseScreen} />
             <Stack.Screen name="ExerciseLog" component={ExerciseLogScreen} />
+            <Stack.Screen name="AddSet" component={AddSetScreen} />
           </Stack.Navigator>
 
           {/* // colorscheme toggle button */}

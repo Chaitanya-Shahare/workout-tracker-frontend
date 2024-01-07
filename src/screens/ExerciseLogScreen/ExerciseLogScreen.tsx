@@ -26,26 +26,26 @@ const exerciseLogs: ExerciseLog[] = [
   { _id: "2", weight: 15, reps: 12, timeStamp: "2022-01-01 11:30 AM" },
   { _id: "3", weight: 12, reps: 10, timeStamp: "2022-01-01 09:45 AM" },
   // Add 50 similar objects with unique _ids
-  { _id: "8", weight: 20, reps: 15, timeStamp: "2022-01-03 10:00 AM" },
-  { _id: "9", weight: 25, reps: 20, timeStamp: "2022-01-03 11:30 AM" },
-  { _id: "10", weight: 22, reps: 18, timeStamp: "2022-01-03 09:45 AM" },
-  // Add more objects here...
-  { _id: "4", weight: 10, reps: 8, timeStamp: "2022-01-02 10:00 AM" },
-  { _id: "12", weight: 10, reps: 8, timeStamp: "2022-01-02 10:00 AM" },
-  { _id: "13", weight: 15, reps: 12, timeStamp: "2022-01-02 11:30 AM" },
-  { _id: "14", weight: 12, reps: 10, timeStamp: "2022-01-02 09:45 AM" },
-  { _id: "8", weight: 10, reps: 8, timeStamp: "2022-01-01 10:00 AM" },
-  { _id: "9", weight: 15, reps: 12, timeStamp: "2022-01-01 11:30 AM" },
-  { _id: "10", weight: 12, reps: 10, timeStamp: "2022-01-01 09:45 AM" },
-  // Add 57 similar objects with unique _ids
-  { _id: "15", weight: 20, reps: 15, timeStamp: "2022-01-03 10:00 AM" },
-  { _id: "16", weight: 25, reps: 20, timeStamp: "2022-01-03 11:30 AM" },
-  { _id: "17", weight: 22, reps: 18, timeStamp: "2022-01-03 09:45 AM" },
-  // Add more objects here...
-  { _id: "11", weight: 10, reps: 8, timeStamp: "2022-01-02 10:00 AM" },
+  // { _id: "8", weight: 20, reps: 15, timeStamp: "2022-01-03 10:00 AM" },
+  // { _id: "9", weight: 25, reps: 20, timeStamp: "2022-01-03 11:30 AM" },
+  // { _id: "10", weight: 22, reps: 18, timeStamp: "2022-01-03 09:45 AM" },
+  // // Add more objects here...
+  // { _id: "4", weight: 10, reps: 8, timeStamp: "2022-01-02 10:00 AM" },
+  // { _id: "12", weight: 10, reps: 8, timeStamp: "2022-01-02 10:00 AM" },
+  // { _id: "13", weight: 15, reps: 12, timeStamp: "2022-01-02 11:30 AM" },
+  // { _id: "14", weight: 12, reps: 10, timeStamp: "2022-01-02 09:45 AM" },
+  // { _id: "8", weight: 10, reps: 8, timeStamp: "2022-01-01 10:00 AM" },
+  // { _id: "9", weight: 15, reps: 12, timeStamp: "2022-01-01 11:30 AM" },
+  // { _id: "10", weight: 12, reps: 10, timeStamp: "2022-01-01 09:45 AM" },
+  // // Add 57 similar objects with unique _ids
+  // { _id: "15", weight: 20, reps: 15, timeStamp: "2022-01-03 10:00 AM" },
+  // { _id: "16", weight: 25, reps: 20, timeStamp: "2022-01-03 11:30 AM" },
+  // { _id: "17", weight: 22, reps: 18, timeStamp: "2022-01-03 09:45 AM" },
+  // // Add more objects here...
+  // { _id: "11", weight: 10, reps: 8, timeStamp: "2022-01-02 10:00 AM" },
 ];
 
-export const ExerciseLogScreen: React.FC = () => {
+export const ExerciseLogScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
 
   const groupedExerciseLogs = _.groupBy(
@@ -106,10 +106,12 @@ export const ExerciseLogScreen: React.FC = () => {
       <FAB
         icon="plus"
         style={styles.fab}
-        onPress={() => console.log("Pressed")}
-        animated={true}
-        loading={false}
+        onPress={() => {
+          console.log("Pressed");
+          navigation.navigate("AddSet");
+        }}
         customSize={70}
+        variant="tertiary"
       />
     </ScrollView>
   );
