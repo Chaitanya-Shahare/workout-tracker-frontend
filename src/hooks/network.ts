@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 // import { UserState } from "pages";
 import * as Keychain from "react-native-keychain";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { userState } from "../screens";
 // import { API_BASE_URL, environment } from "constant";
 
 // import { loginState, WebTokenState } from "states";
@@ -20,12 +21,11 @@ let accessToken = "";
 // const API_HOST = API_BASE_URL.local;
 const API_HOST = "http://localhost:5001";
 
-export const useNetwork = async () => {
-  const token = await AsyncStorage.getItem("token");
-
-  console.log(token);
-  //   const { data: loginUser } = useRecoilValue(UserState);
-  //   const { token } = loginUser;
+export const useNetwork = () => {
+  const loginUser = useRecoilValue(userState);
+  const { token } = loginUser;
+  console.log("loginUser", loginUser);
+  console.log("token", token);
   // const webToken = useRecoilValue(WebTokenState);
   // const accessToken = webToken?.length > 0 ? webToken : token;
   if (token) {

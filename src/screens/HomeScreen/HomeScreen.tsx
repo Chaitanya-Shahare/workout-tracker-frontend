@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import React, { useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import {
   List,
@@ -11,8 +11,19 @@ import {
   TextInput,
   Divider,
 } from "react-native-paper";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userState } from "../SignupScreen";
 
 export const HomeScreen = ({ navigation }: any) => {
+  const [user, setUser] = useRecoilState(userState);
+
+  useEffect(() => {
+    (async () => {
+      const userToBeParsed = await AsyncStorage.getItem("user");
+      if (userToBeParsed) setUser(JSON.parse(userToBeParsed));
+    })();
+  }, []);
+
   const [lists, setLists] = React.useState([
     "My Exercises",
     "push",
@@ -41,7 +52,7 @@ export const HomeScreen = ({ navigation }: any) => {
               style={styles.listItem}
             />
           </TouchableRipple>
-          {lists.map((list, index) => (
+          {user.lists.map((list, index) => (
             <TouchableRipple
               key={index}
               onPress={() => {

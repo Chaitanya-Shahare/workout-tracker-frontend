@@ -9,19 +9,15 @@ import {
 import * as Keychain from "react-native-keychain";
 import { AuthContext } from "../../context/AuthProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRecoilState } from "recoil";
+import { userState } from "./state";
 
 export const SignupScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
 
-  useEffect(() => {
-    console.log("email", email);
-    console.log("password", password);
-    console.log("userName", userName);
-  }, [email, password, userName]);
-
-  // const { setIsSignedIn } = useContext(AuthContext);
+  const [user, setUser] = useRecoilState(userState);
 
   const handleSignup = async () => {
     const payload = { userName, email, password };
@@ -44,6 +40,7 @@ export const SignupScreen = ({ navigation }: any) => {
           "user",
           JSON.stringify({ ...data.user, token: data.token })
         );
+        setUser({ ...data.user, token: data.token });
         console.log(data);
         // setIsSignedIn(true);
         navigation.navigate("Home");

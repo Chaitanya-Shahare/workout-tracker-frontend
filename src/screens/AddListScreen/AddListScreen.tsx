@@ -6,14 +6,29 @@ import {
   Surface,
   ActivityIndicator,
 } from "react-native-paper";
+import { useNetwork } from "../../hooks/network";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { userState } from "../SignupScreen";
 
 export const AddListScreen = ({ navigation }: any) => {
   const [listName, setListName] = React.useState("");
   const [listDescription, setListDescription] = React.useState("");
 
+  const { post } = useNetwork();
+
+  const [user, setUser] = useRecoilState(userState);
+
   const handleAddList = () => {
     // Write your AddList function logic here
-    navigation.goBack();
+    post("/users/add-list", { listName, listDescription })
+      .then((res) => {
+        console.log(res);
+        setUser((user: any) => ({ ...user, lists: [...user.lists, listName] }));
+        if (res.success) navigation.goBack();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
