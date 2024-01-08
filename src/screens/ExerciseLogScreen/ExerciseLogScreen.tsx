@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
 import {
   List,
@@ -8,8 +8,10 @@ import {
   TouchableRipple,
   useTheme,
   FAB,
+  Button,
 } from "react-native-paper";
 import _ from "lodash";
+import { useRoute } from "@react-navigation/native";
 
 interface ExerciseLog {
   _id: string;
@@ -48,72 +50,93 @@ const exerciseLogs: ExerciseLog[] = [
 export const ExerciseLogScreen = ({ navigation }: any) => {
   const { colors } = useTheme();
 
+  const route = useRoute();
+  const listName = (route.params as { listName?: string })?.listName;
+  const exercise = (route.params as { exercise?: any })?.exercise;
+
+  useEffect(() => {
+    navigation.setOptions({ title: exercise.name });
+  }, []);
+
+  const [exerciseLogs, setExerciseLogs] = React.useState<ExerciseLog[]>(
+    exercise.logs
+  );
+
   const groupedExerciseLogs = _.groupBy(
     exerciseLogs,
+    // exercise.log,
     (log) => log.timeStamp.split(" ")[0]
   );
 
   return (
-    <ScrollView
-      style={{
-        ...styles.container,
-        backgroundColor: colors.elevation.level1,
-      }}
-    >
-      {Object.entries(groupedExerciseLogs).map(([date, logs]) => (
-        <List.Section key={date}>
-          <List.Subheader>{date}</List.Subheader>
-          <Surface style={styles.listWrapper} elevation={2}>
-            {logs.map((log) => (
-              <TouchableRipple
-                onPress={() => {
-                  console.log("pressed log");
-                }}
-              >
-                <>
-                  <List.Item
-                    key={log._id}
-                    style={styles.listItem}
-                    title={
-                      log.timeStamp.split(" ")[1] +
-                      " " +
-                      log.timeStamp.split(" ")[2]
-                    }
-                    // description={`Weight: ${log.weight} Reps: ${log.reps}`}
-                    // left={() => <List.Icon icon="clock" />}
-                    right={() => (
-                      <View style={styles.listItemRight}>
-                        <View style={styles.span}>
-                          <Text style={styles.reps}>{log.reps}</Text>
-                          <Text>reps</Text>
+    <View>
+      <ScrollView
+        style={{
+          ...styles.container,
+          backgroundColor: colors.elevation.level1,
+        }}
+      >
+        {Object.entries(groupedExerciseLogs).map(([date, logs]) => (
+          <List.Section key={date}>
+            <List.Subheader>{date}</List.Subheader>
+            <Surface style={styles.listWrapper} elevation={2}>
+              {logs.map((log) => (
+                <TouchableRipple
+                  onPress={() => {
+                    console.log("pressed log");
+                  }}
+                >
+                  <>
+                    <List.Item
+                      key={log._id}
+                      style={styles.listItem}
+                      title={
+                        log.timeStamp.split(" ")[1] +
+                        " " +
+                        log.timeStamp.split(" ")[2]
+                      }
+                      // description={`Weight: ${log.weight} Reps: ${log.reps}`}
+                      // left={() => <List.Icon icon="clock" />}
+                      right={() => (
+                        <View style={styles.listItemRight}>
+                          <View style={styles.span}>
+                            <Text style={styles.reps}>{log.reps}</Text>
+                            <Text>reps</Text>
+                          </View>
+                          <View style={styles.span}>
+                            <Text style={styles.weight}>{log.weight}</Text>
+                            <Text>kg</Text>
+                          </View>
+                          <List.Icon icon="chevron-right" color="grey" />
                         </View>
-                        <View style={styles.span}>
-                          <Text style={styles.weight}>{log.weight}</Text>
-                          <Text>kg</Text>
-                        </View>
-                        <List.Icon icon="chevron-right" color="grey" />
-                      </View>
-                    )}
-                  />
-                  <Divider style={styles.divider} />
-                </>
-              </TouchableRipple>
-            ))}
-            {/* <Divider /> */}
-          </Surface>
-        </List.Section>
-      ))}
-      <FAB
+                      )}
+                    />
+                    <Divider style={styles.divider} />
+                  </>
+                </TouchableRipple>
+              ))}
+              {/* <Divider /> */}
+            </Surface>
+          </List.Section>
+        ))}
+      </ScrollView>
+      <Button
         icon="plus"
-        style={styles.fab}
+        style={{}}
         onPress={() => {
           console.log("Pressed");
-          navigation.navigate("AddSet");
+          navigation.navigate("AddSet", {
+            exerciseId: exercise._id,
+            exerciseName: exercise.name,
+            setExerciseLogs: setExerciseLogs,
+          });
         }}
-        customSize={70}
-        variant="tertiary"
-      />
-    </ScrollView>
+        // customSize={70}
+        // variant="tertiary"
+      >
+        +
+      </Button>
+    </View>
   );
 };
 

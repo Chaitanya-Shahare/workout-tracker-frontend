@@ -8,35 +8,40 @@ import {
   TouchableRipple,
 } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNetwork } from "../../hooks/network";
 
 export const ExerciseListScreen = ({ navigation }: any) => {
-  // const navigation = useNavigation();
   const route = useRoute();
 
-  // The listName parameter is in route.params.listName
   const listName = (route.params as { listName?: string })?.listName;
 
-  useEffect(() => {
-    console.log("listName", listName);
-    navigation.setOptions({ title: listName });
-  }, [listName]);
-
   const exercises = [
-    { id: 1, name: "Bench Press" },
-    { id: 2, name: "DB Overhead Press" },
-    { id: 3, name: "Side Lateral Raises" },
-    // Add more exercises as needed
+    { _id: 1, name: "Bench Press" },
+    { _id: 2, name: "DB Overhead Press" },
+    { _id: 3, name: "Side Lateral Raises" },
   ];
 
-  const renderExerciseItem = ({
-    item,
-  }: {
-    item: { id: number; name: string };
-  }) => (
+  const [exerciseList, setExerciseList] = React.useState([]);
+
+  const { get } = useNetwork();
+
+  useEffect(() => {
+    navigation.setOptions({ title: listName });
+    get("/exercise/" + listName)
+      .then((res) => {
+        setExerciseList(res.exercises);
+        console.log("get exercise useeffect", res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  const renderExerciseItem = ({ item }: { item: any }) => (
     <TouchableRipple
       onPress={() => {
         console.log("pressed exercise abc");
-        navigation.navigate("ExerciseLog", { listName });
+        navigation.navigate("ExerciseLog", { listName, exercise: item });
       }}
     >
       <List.Item
@@ -50,9 +55,9 @@ export const ExerciseListScreen = ({ navigation }: any) => {
     <Surface style={styles.container}>
       <Surface style={styles.listWrapper} elevation={2}>
         <FlatList
-          data={exercises}
+          data={exerciseList}
           renderItem={renderExerciseItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item._id.toString()}
           ItemSeparatorComponent={() => <Divider style={styles.divider} />}
         />
         {/* {exercises.map((exercise, index) =>
