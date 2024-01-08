@@ -9,6 +9,7 @@ import {
 import { useNetwork } from "../../hooks/network";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { userState } from "../SignupScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const AddListScreen = ({ navigation }: any) => {
   const [listName, setListName] = React.useState("");
@@ -24,6 +25,10 @@ export const AddListScreen = ({ navigation }: any) => {
       .then((res) => {
         console.log(res);
         setUser((user: any) => ({ ...user, lists: [...user.lists, listName] }));
+        AsyncStorage.setItem(
+          "user",
+          JSON.stringify({ ...user, lists: [...user.lists, listName] })
+        );
         if (res.success) navigation.goBack();
       })
       .catch((err) => {

@@ -18,22 +18,17 @@ export const HomeScreen = ({ navigation }: any) => {
   const [user, setUser] = useRecoilState(userState);
 
   useEffect(() => {
+    console.log(user);
+  }, [user]);
+
+  useEffect(() => {
     (async () => {
       const userToBeParsed = await AsyncStorage.getItem("user");
-      if (userToBeParsed) setUser(JSON.parse(userToBeParsed));
+      if (userToBeParsed) await setUser(JSON.parse(userToBeParsed));
     })();
   }, []);
 
-  const [lists, setLists] = React.useState([
-    "My Exercises",
-    "push",
-    "pull",
-    "legs",
-  ]);
-  //   (async () => {
-  //     const userToBeParsed = await AsyncStorage.getItem("user");
-  //     if (userToBeParsed) setLists(JSON.parse(userToBeParsed).lists);
-  //   })();
+  if (!user) return null;
 
   return (
     <Surface style={styles.container}>
@@ -52,9 +47,9 @@ export const HomeScreen = ({ navigation }: any) => {
               style={styles.listItem}
             />
           </TouchableRipple>
-          {user.lists.map((list, index) => (
+          {user?.lists?.map((list: string, index: number) => (
             <TouchableRipple
-              key={index}
+              key={list}
               onPress={() => {
                 console.log("pressed", list);
                 navigation.navigate("ExerciseList", { listName: list });

@@ -1,3 +1,4 @@
+import { useRoute } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet } from "react-native";
 import {
@@ -6,14 +7,27 @@ import {
   Surface,
   ActivityIndicator,
 } from "react-native-paper";
+import { useNetwork } from "../../hooks/network";
 
 export const AddExerciseScreen = ({ navigation }: any) => {
   const [exerciseName, setExerciseName] = React.useState("");
   const [exerciseDescription, setExerciseDescription] = React.useState("");
 
-  const handleAddExercise = () => {
+  const route = useRoute();
+  const listName = (route.params as { listName?: string })?.listName;
+
+  const { post } = useNetwork();
+
+  const handleAddExercise = async () => {
     // Write your AddList function logic here
     navigation.goBack();
+    await post("/exercise", { listName, exerciseName, exerciseDescription })
+      .then((res) => {
+        console.log("add exercise", res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
