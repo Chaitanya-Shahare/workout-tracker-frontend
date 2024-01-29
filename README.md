@@ -10,7 +10,7 @@ The backend for this app is built with Node.js and Express. It is available [her
 
 1. [x] `(chaitanya)` fix require cycle warning in react-native
 2. [ ] fix useEffect not working when the page comes back
-3. [ ] use asyncStorage to save token from authentication
+3. [x] `(chaitanya)` use asyncStorage to save token from authentication
 4. [ ] save the token in a collection in backend
 5. [ ] verify the token in the auth middleware
 6. [ ] fix add FAB in exerciseLog page

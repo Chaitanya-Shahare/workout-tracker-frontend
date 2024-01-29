@@ -24,13 +24,10 @@ const API_HOST = "http://localhost:5001";
 export const useNetwork = () => {
   const loginUser = useRecoilValue(userState);
   const { token } = loginUser;
-  console.log("loginUser", loginUser);
-  console.log("token", token);
   // const webToken = useRecoilValue(WebTokenState);
   // const accessToken = webToken?.length > 0 ? webToken : token;
   if (token) {
     accessToken = token;
-    // console.log(token);
   }
   // const { logout } = useLogout();
 
@@ -55,7 +52,6 @@ export const useNetwork = () => {
 
   const get = useCallback(
     async (url: string, configHeader?: any): Promise<any> => {
-      console.log("string Url", url);
       setLoading(true);
       try {
         const response = await fetch(API_HOST + url, configHeader ?? config);

@@ -28,17 +28,6 @@ export const LoginScreen = ({ navigation }: any) => {
     }
   })();
 
-  useEffect(() => {
-    console.log("token", token);
-  }, [email]);
-
-  // console.log for testing input fields
-  useEffect(() => {
-    console.log("email", email);
-    console.log("password", password);
-    console.log("userName", userName);
-  }, [email, password, userName]);
-
   const handleLogin = async () => {
     const payload = { userName, email, password };
     try {

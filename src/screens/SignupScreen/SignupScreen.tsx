@@ -6,8 +6,6 @@ import {
   Surface,
   ActivityIndicator,
 } from "react-native-paper";
-import * as Keychain from "react-native-keychain";
-import { AuthContext } from "../../context/AuthProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRecoilState } from "recoil";
 import { userState } from "../../state";
@@ -41,7 +39,7 @@ export const SignupScreen = ({ navigation }: any) => {
           JSON.stringify({ ...data.user, token: data.token })
         );
         setUser({ ...data.user, token: data.token });
-        console.log(data);
+        // console.log(data);
         // setIsSignedIn(true);
         navigation.navigate("Home");
       }
