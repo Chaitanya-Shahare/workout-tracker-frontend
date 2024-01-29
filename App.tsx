@@ -36,7 +36,7 @@ export default function App() {
       <PaperProvider theme={paperTheme}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Home"
+            initialRouteName="Signup"
             screenOptions={{
               header: (props) => <CustomHeader {...props} />,
             }}
