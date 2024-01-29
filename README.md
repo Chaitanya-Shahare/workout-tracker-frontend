@@ -8,7 +8,7 @@ The backend for this app is built with Node.js and Express. It is available [her
 
 ## Tasks
 
-1. [ ] fix require cycle warning in react-native
+1. [ ] (chaitanya) fix require cycle warning in react-native
 2. [ ] fix useEffect not working when the page comes back
 3. [ ] use asyncStorage to save token from authentication
 4. [ ] save the token in a collection in backend
