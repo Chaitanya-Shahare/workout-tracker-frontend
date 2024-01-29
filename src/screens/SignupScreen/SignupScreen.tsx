@@ -10,7 +10,7 @@ import * as Keychain from "react-native-keychain";
 import { AuthContext } from "../../context/AuthProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRecoilState } from "recoil";
-import { userState } from "./state";
+import { userState } from "../../state";
 
 export const SignupScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState("");

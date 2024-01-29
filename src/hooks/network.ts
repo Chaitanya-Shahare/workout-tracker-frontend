@@ -3,7 +3,7 @@ import { useRecoilValue } from "recoil";
 // import { UserState } from "pages";
 import * as Keychain from "react-native-keychain";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { userState } from "../screens";
+import { userState } from "../state";
 // import { API_BASE_URL, environment } from "constant";
 
 // import { loginState, WebTokenState } from "states";

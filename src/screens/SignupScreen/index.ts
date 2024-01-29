@@ -1,2 +1,2 @@
 export * from "./SignupScreen";
-export * from "./state";
+export * from "../../state";
