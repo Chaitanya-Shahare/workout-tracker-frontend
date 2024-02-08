@@ -20,7 +20,6 @@ export const AddExerciseScreen = ({ navigation }: any) => {
 
   const handleAddExercise = async () => {
     // Write your AddList function logic here
-    navigation.goBack();
     await post("/exercise", { listName, exerciseName, exerciseDescription })
       .then((res) => {
         console.log("add exercise", res);
@@ -28,6 +27,7 @@ export const AddExerciseScreen = ({ navigation }: any) => {
       .catch((err) => {
         console.error(err);
       });
+    navigation.goBack();
   };
 
   return (

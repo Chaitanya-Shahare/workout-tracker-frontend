@@ -9,11 +9,13 @@ import {
 } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useNetwork } from "../../hooks/network";
+import { useFocusEffect } from "@react-navigation/native";
 
 export const ExerciseListScreen = ({ navigation }: any) => {
   const route = useRoute();
 
   const listName = (route.params as { listName?: string })?.listName;
+  const routeName = (route.params as { routeName?: string })?.routeName;
 
   const exercises = [
     { _id: 1, name: "Bench Press" },
@@ -25,22 +27,24 @@ export const ExerciseListScreen = ({ navigation }: any) => {
 
   const { get } = useNetwork();
 
-  useEffect(() => {
-    navigation.setOptions({ title: listName });
-    get("/exercise/" + listName)
-      .then((res) => {
-        setExerciseList(res.exercises);
-        console.log("get exercise useeffect", res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      navigation.setOptions({ title: listName });
+      get("/exercise/" + listName)
+        .then((res) => {
+          setExerciseList(res.exercises);
+          console.log("get exercise useeffect", res);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }, [])
+  );
 
   const renderExerciseItem = ({ item }: { item: any }) => (
     <TouchableRipple
       onPress={() => {
-        console.log("pressed exercise abc");
+        console.log("pressed exercise " + item.name + " in " + listName);
         navigation.navigate("ExerciseLog", { listName, exercise: item });
       }}
     >
